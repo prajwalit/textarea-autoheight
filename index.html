@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>YUI 3: Simple Textarea Auto-Expander</title>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <style type="text/css">
+      header {
+          border-bottom: 1px solid #aaa;
+      }
+      footer {
+          border-top: 1px solid #aaa;
+          padding-top: 10px;
+      }
+      footer a {
+          font-size: 13px;
+          color: maroon;
+      }
+      header, footer, .doc {
+          width: 900px;
+          margin: auto;
+      }
+      .demo {
+          margin: 40px auto;
+      }
+      pre {
+          background: #eee;
+          border: 1px solid #ccc;
+          padding: 5px;
+      }
+
+      textarea {
+          width: 500px;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h2>YUI 3: Textarea Auto-Expander</h2>
+    </header>
+
+    <div class="doc">
+      <div class="demo">
+        <h4>Demo: Start typing in this textarea: </h4>
+        <textarea rows="1"></textarea>
+      </div>
+      <h4>Code:</h4>
+      <pre>
+  &lt;script type="text/javascript" src="http://yui.yahooapis.com/3.2.0/build/yui/yui-min.js"&gt;&lt;/script&gt;
+  &lt;script type="text/javascript" src="textareaAutoexpander-min.js"&gt;&lt;/script&gt;
+  &lt;script type="text/javascript"&gt;
+    YUI ().use ("textareaAutoexpander", function (Y) {
+      new Y.TextareaAutoexpander ({
+        node: Y.one("textarea")
+      }).render ();
+    });
+  &lt;/script&gt;</pre>
+    </div>
+    <footer>
+      <a href="http://github.com/prajwalit/Simple-textarea-auto-expander">Download Code</a>
+      | <a href="http://prajwalit.com">Prajwalit.com</a>
+      | @<a href="http://twitter.com/prajwalit">prajwalit</a>
+    </footer>
+    <script type="text/javascript" src="http://yui.yahooapis.com/3.2.0/build/yui/yui-min.js"></script>
+    <script type="text/javascript" src="textareaAutoexpander-min.js"></script>
+    <script type="text/javascript">
+      YUI ().use ("textareaAutoexpander", function (Y) {
+        new Y.TextareaAutoexpander ({
+          node: Y.one("textarea")
+        }).render ();
+      });
+    </script>
+
+  </body>
+</html>
