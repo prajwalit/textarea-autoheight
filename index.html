@@ -37,6 +37,7 @@
   <body>
     <header>
       <h2>YUI 3: Textarea Autoheight</h2>
+      <p>A YUI 3 plugin which adds 'auto-height' functionality to textareas.</p>
     </header>
 
     <div class="doc">
@@ -50,9 +51,7 @@
   &lt;script type="text/javascript" src="textareaAutoheight-min.js"&gt;&lt;/script&gt;
   &lt;script type="text/javascript"&gt;
     YUI ().use ("textareaAutoheight", function (Y) {
-      new Y.TextareaAutoheight ({
-        node: Y.one("textarea")
-      }).render ();
+      Y.one("textarea").plug (Y.TextareaAutoheight);
     });
   &lt;/script&gt;</pre>
     </div>
@@ -65,9 +64,7 @@
     <script type="text/javascript" src="textareaAutoheight-min.js"></script>
     <script type="text/javascript">
       YUI ().use ("textareaAutoheight", function (Y) {
-        new Y.TextareaAutoheight ({
-          node: Y.one("textarea")
-        }).render ();
+        Y.one("textarea").plug (Y.TextareaAutoheight);
       });
     </script>
     <script type="text/javascript">

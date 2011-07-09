@@ -1,5 +1,5 @@
 /**
- * A YUI 3 Widget which adds auto-height functionality to textareas.
+ * A YUI3 plugin which adds auto-height functionality to textareas.
  * @author Prajwalit Bhopale <prajwalit@infinitelybeta.com>
  * @created Jul 9, 2011
  * @module textareaAutoheight
@@ -46,25 +46,41 @@ YUI.add("textareaAutoheight", function(Y) {
    *   node: Y.one("textarea")
    * }).render ();
    */
-  Y.TextareaAutoheight = Y.Base.create ("textareaAutoheight", Y.Widget, [], {
+  Y.TextareaAutoheight = Y.Base.create ("textareaAutoheight", Y.Plugin.Base, [], {
 
+    /**
+     * Stores original "rows" attribute to go back to original state.
+     */
     _originalRows: 1,
+    
+    /**
+     * Stores height of single row used to get total number of rows.
+     */
     _rowHeight: 0,
+    
+    /**
+     * textarea events handler. focus/keyup/blur
+     */
     _eventHandler: null,
+    
+    /**
+     * Stores current value of "rows" attribute.
+     */
     _currentRows: 1,
     
     /**
      * Constructor for TextareaAutoheight.
      */
     initializer: function (config) {
-      Y.log ("Initializing textareaAutoheight");
-      var node = this.get ("node");
+      Y.log ("Pluging in textareaAutoheight");
+      
+      var node = this.get ("host");
       this._originalRows = node.get ("rows");
-      var content = node.get ("value");
 
       // We need to calculate row height of textarea.
       // for that we're going to strip all css properties that affect height,
       // calculate rowHeight, and then put all those styles back again.
+      var content = node.get ("value");
       var paddingTop = node.getComputedStyle ("paddingTop");
       var paddingBottom = node.getComputedStyle ("paddingBottom");
       node.setStyles ({
@@ -80,25 +96,20 @@ YUI.add("textareaAutoheight", function(Y) {
         height: "auto"
       });
       node.setContent (content);
+
+      // Renderer
+      this.renderUI ();      
+      this.bindUI ();
+      this.syncUI (true);
     },
     
     /**
      * Destructor for TextareaAutoheight.
      */
     destructor: function () {
-      this.get ("node").setStyle ("overflow", "auto").set ("rows", this._originalRows);
+      this.get ("host").setStyle ("overflow", "auto").set ("rows", this._originalRows);
       this._eventHandler.detach ();
       this._eventHandler = null;
-    },
-
-    /**
-     * Renderer function for TextareaAutoheight.
-     * This function gets called when render() function gets executed.
-     */
-    renderer: function () {
-      this.renderUI ();      
-      this.bindUI ();
-      this.syncUI (true);
     },
 
     /**
@@ -107,7 +118,7 @@ YUI.add("textareaAutoheight", function(Y) {
      * the widget needs into the document.
      */
     renderUI: function () {
-      this.get ("node").setStyle ("overflow", "hidden");
+      this.get ("host").setStyle ("overflow", "hidden");
     },    
 
     /**
@@ -116,7 +127,7 @@ YUI.add("textareaAutoheight", function(Y) {
      * to the widget state. 
      */
     bindUI: function () {
-      this._eventHandler = this.get ("node").on ({
+      this._eventHandler = this.get ("host").on ({
         "focus": {
           fn: function (event) {
             this.syncUI ();
@@ -147,25 +158,23 @@ YUI.add("textareaAutoheight", function(Y) {
      * When perfectHeight is true, that extra row will not get added.
      */
     syncUI: function (perfectHeight) {
-      var node = this.get ("node");
+      var node = this.get ("host");
       node.set ("rows", "1");
-      var rows = this.get ("node").get ("scrollHeight")/this._rowHeight;
+      var rows = this.get ("host").get ("scrollHeight")/this._rowHeight;
       this._currentRows = (rows >= this._originalRows ? rows : this._originalRows);
-      this.get ("node").set ("rows", (this._currentRows + (perfectHeight?0:1)));
+      this.get ("host").set ("rows", (this._currentRows + (perfectHeight?0:1)));
     }
     
   }, {
 
     /**
+     * Plugin NameSpace.
+     */    
+    NS: "textareaAutoheight",
+    /**
      * Config attributes for TextareaAutoheight go here.
      */
-    ATTRS: {
-      
-      /**
-       * Textarea to which autoheight functionality is to be attached.
-       */
-      node: null
-    }
+    ATTRS: {}
   });
 
-}, "0.0.1", {requires:["widget", "base-build", "node"]});
+}, "0.0.1", {requires:["plugin", "base-build", "node"]});
