@@ -1,8 +1,8 @@
 /**
- * A YUI 3 Widget which adds auto-expanding functionality to textareas.
+ * A YUI 3 Widget which adds auto-height functionality to textareas.
  * @author Prajwalit Bhopale <prajwalit@infinitelybeta.com>
  * @created Jul 9, 2011
- * @module textareaAutoexpander
+ * @module textareaAutoheight
  * @requires node
  *
  * Copyright (c) 2011, Prajwalit Bhopale
@@ -37,16 +37,16 @@
  * This method (just) registers the module so that it can attached to a YUI instance
  * via the use method. It's executed at YUI().use(...) phase.
  */
-YUI.add("textareaAutoexpander", function(Y) {
+YUI.add("textareaAutoheight", function(Y) {
 
   /**
-   * @class Y.TextareaAutoexpander
+   * @class Y.TextareaAutoheight
    * @example -
-   * new Y.TextareaAutoexpander ({
+   * new Y.TextareaAutoheight ({
    *   node: Y.one("textarea")
    * }).render ();
    */
-  Y.TextareaAutoexpander = Y.Base.create ("textareaAutoexpander", Y.Widget, [], {
+  Y.TextareaAutoheight = Y.Base.create ("textareaAutoheight", Y.Widget, [], {
 
     _originalRows: 1,
     _rowHeight: 0,
@@ -54,10 +54,10 @@ YUI.add("textareaAutoexpander", function(Y) {
     _currentRows: 1,
     
     /**
-     * Constructor for TextareaAutoexpander.
+     * Constructor for TextareaAutoheight.
      */
     initializer: function (config) {
-      Y.log ("Initializing textareaAutoexpander");
+      Y.log ("Initializing textareaAutoheight");
       var node = this.get ("node");
       this._originalRows = node.get ("rows");
       var content = node.get ("value");
@@ -83,7 +83,7 @@ YUI.add("textareaAutoexpander", function(Y) {
     },
     
     /**
-     * Destructor for TextareaAutoexpander.
+     * Destructor for TextareaAutoheight.
      */
     destructor: function () {
       this.get ("node").setStyle ("overflow", "auto").set ("rows", this._originalRows);
@@ -92,7 +92,7 @@ YUI.add("textareaAutoexpander", function(Y) {
     },
 
     /**
-     * Renderer function for TextareaAutoexpander.
+     * Renderer function for TextareaAutoheight.
      * This function gets called when render() function gets executed.
      */
     renderer: function () {
@@ -111,7 +111,7 @@ YUI.add("textareaAutoexpander", function(Y) {
     },    
 
     /**
-     * BindUI function for TextareaAutoexpander.
+     * BindUI function for TextareaAutoheight.
      * This method is responsible for attaching event listeners which bind the UI
      * to the widget state. 
      */
@@ -139,7 +139,7 @@ YUI.add("textareaAutoexpander", function(Y) {
     },
 
     /**
-     * SyncUI function for TextareaAutoexpander.
+     * SyncUI function for TextareaAutoheight.
      * This method is responsible for setting the initial state of the UI based on
      * the current state of the widget at the time of rendering.
      *
@@ -157,16 +157,15 @@ YUI.add("textareaAutoexpander", function(Y) {
   }, {
 
     /**
-     * Config attributes for TextareaAutoexpander go here.
+     * Config attributes for TextareaAutoheight go here.
      */
     ATTRS: {
       
       /**
-       * Textarea to be converted to auto-expander
+       * Textarea to which autoheight functionality is to be attached.
        */
       node: null
     }
   });
 
 }, "0.0.1", {requires:["widget", "base-build", "node"]});
-
