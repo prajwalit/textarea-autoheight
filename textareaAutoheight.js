@@ -1,6 +1,6 @@
 /**
  * A YUI3 plugin which adds auto-height functionality to textareas.
- * @author Prajwalit Bhopale <prajwalit@infinitelybeta.com>
+ * @author Prajwalit Bhopale <contact@prajwalit.com>
  * @created Jul 9, 2011
  * @module textareaAutoheight
  * @requires node
