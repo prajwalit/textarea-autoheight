@@ -179,6 +179,16 @@ YUI.add("textareaAutoheight", function(Y) {
         node.setStyle ("overflowY", "auto");
         this.get ("host").set ("rows", this.get ("maxRows"));
       }
+    },
+    
+    /**
+     * If the textarea needs to be adjusted height manually, say after set value call,
+     * this method can be used.
+     * eg. Y.one ("textarea").textareaAutoheight.adjustHeight ();
+     */
+
+    adjustHeight: function () {
+      this.syncUI (this.get ("perfectHeight"));
     }
     
   }, {
