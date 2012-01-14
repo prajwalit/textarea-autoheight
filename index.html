@@ -15,7 +15,7 @@
           border-top: 1px solid #aaa;
           padding-top: 10px;
       }
-      footer a {
+      a {
           font-size: 13px;
           color: maroon;
       }
@@ -31,7 +31,10 @@
           border: 1px solid #ccc;
           padding: 5px;
       }
-
+      .fork {
+          float: right;
+          font-size: 15px;
+      }
       textarea {
           width: 500px;
       }
@@ -39,6 +42,7 @@
   </head>
   <body>
     <header>
+      <a class="fork" href="https://github.com/prajwalit/textarea-autoheight">Fork it on Github</a>
       <h2>YUI 3: Textarea Autoheight</h2>
       <p>A YUI 3 plugin which adds 'auto-height' functionality to textareas.</p>
     </header>
@@ -57,6 +61,12 @@
       Y.one("textarea").plug (Y.TextareaAutoheight);
     });
   &lt;/script&gt;</pre>
+      <br />
+      <p>* OR If you pass maxRows parameter, it will add scrollbar after those many number of rows.</p>
+      <pre>Y.one("textarea").plug (Y.TextareaAutoheight, {maxRows: 4});</pre>
+      <br />
+      <p>* To adjust height manually:</p>
+      <pre>Y.one("textarea").textareaAutoheight.adjustHeight();</pre>
     </div>
     <footer>
       <a href="https://github.com/prajwalit/textarea-autoheight">Download Code</a>
