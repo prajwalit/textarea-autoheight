@@ -83,18 +83,30 @@ YUI.add("textareaAutoheight", function(Y) {
       var content = node.get ("value");
       var paddingTop = node.getComputedStyle ("paddingTop");
       var paddingBottom = node.getComputedStyle ("paddingBottom");
+      var clonnedTA = this.get ("host").cloneNode ();
+      clonnedTA.setStyle ("visibility", "hidden");
+      if (!this.get ("rowHeight")) {
+        Y.one ("body").appendChild (clonnedTA);
+        clonnedTA.setStyles ({
+          paddingTop: 0,
+          paddingBottom: 0,
+          height: "0px",
+          minHeight: "0px",
+          overflowY: "scroll"
+        }).setContent ("")
+          .set ("rows", "1");
+        this._rowHeight = clonnedTA.get ("scrollHeight");
+        clonnedTA.remove ();
+      } else {
+        this._rowHeight = this.get ("rowHeight");
+      }
+
       node.setStyles ({
-        paddingTop: 0,
-        paddingBottom: 0,
-        height: "0px"
-      }).setContent ("")
-        .set ("rows", "1");
-      this._rowHeight = node.get ("scrollHeight");
-      node.setStyles ({
-        paddingTop: paddingTop,
-        paddingBottom: paddingTop,
-        height: "auto"
+        height: "auto",
+        minHeight: "0px",
+        overflowY: "scroll"
       });
+
       node.setContent (content);
 
       // Renderer
@@ -130,13 +142,13 @@ YUI.add("textareaAutoheight", function(Y) {
       this._eventHandler = this.get ("host").on ({
         "focus": {
           fn: function (event) {
-            this.syncUI ();
+            this.syncUI (this.get ("perfectHeight"));
           },
           context: this
         },
         "keyup": {
           fn: function (event) {
-            this.syncUI ();
+            this.syncUI (this.get ("perfectHeight"));
           },
           context: this
         },
@@ -163,6 +175,10 @@ YUI.add("textareaAutoheight", function(Y) {
       var rows = this.get ("host").get ("scrollHeight")/this._rowHeight;
       this._currentRows = (rows >= this._originalRows ? rows : this._originalRows);
       this.get ("host").set ("rows", (this._currentRows + (perfectHeight?0:1)));
+      if (this.get ("maxRows") && (this._currentRows + (perfectHeight?0:1)) > this.get ("maxRows")) {
+        node.setStyle ("overflowY", "auto");
+        this.get ("host").set ("rows", this.get ("maxRows"));
+      }
     }
     
   }, {
@@ -174,7 +190,26 @@ YUI.add("textareaAutoheight", function(Y) {
     /**
      * Config attributes for TextareaAutoheight go here.
      */
-    ATTRS: {}
+    ATTRS: {
+      
+      /**
+       * If you want to add scroll bar after a particular number of lines, set maxRows = number of lines.
+       */
+      maxRows: null,
+      
+      /**
+       * This plugin usually adds an extra row to avoid jumpiness.
+       * But if you want perfectHeight, you can set this ATTR as true.
+       */
+      perfectHeight: {
+        value: false
+      },
+      
+      /**
+       * If JS's not calculating rowHeight properly, you can pass it manually.
+       */
+      rowHeight: null
+    }
   });
 
 }, "0.0.1", {requires:["plugin", "base-build", "node"]});
