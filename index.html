@@ -52,9 +52,19 @@
         <h4>Demo: Start typing in this textarea: </h4>
         <textarea rows="1" placeholder="Start typing here..."></textarea>
       </div>
-      <h4>Code:</h4>
+      <h4>To Use Gallery Module:</h4>
       <pre>
-  &lt;script type="text/javascript" src="http://yui.yahooapis.com/3.4.1/build/yui/yui-min.js"&gt;&lt;/script&gt;
+  &lt;script type="text/javascript" src="http://yui.yahooapis.com/3.5.1/build/yui/yui-min.js"&gt;&lt;/script&gt;
+  &lt;script type="text/javascript"&gt;
+    YUI ({
+      gallery: "gallery-2012.05.09-20-27"
+    }).use ("gallery-textarea-autoheight", function (Y) {
+      Y.one("textarea").plug (Y.TextareaAutoheight);
+    });
+  &lt;/script&gt;</pre>
+      <h4>To Use Downloaded Code:</h4>
+      <pre>
+  &lt;script type="text/javascript" src="http://yui.yahooapis.com/3.5.1/build/yui/yui-min.js"&gt;&lt;/script&gt;
   &lt;script type="text/javascript" src="textareaAutoheight-min.js"&gt;&lt;/script&gt;
   &lt;script type="text/javascript"&gt;
     YUI ().use ("textareaAutoheight", function (Y) {
@@ -73,10 +83,11 @@
       | <a href="http://prajwalit.com">Prajwalit.com</a>
       | @<a href="http://twitter.com/prajwalit">prajwalit</a>
     </footer>
-    <script type="text/javascript" src="http://yui.yahooapis.com/3.4.1/build/yui/yui-min.js"></script>
-    <script type="text/javascript" src="textareaAutoheight-min.js"></script>
+    <script type="text/javascript" src="http://yui.yahooapis.com/3.5.1/build/yui/yui-min.js"></script>
     <script type="text/javascript">
-      YUI ().use ("textareaAutoheight", function (Y) {
+      YUI ({
+        gallery: "gallery-2012.05.09-20-27"
+      }).use ("gallery-textarea-autoheight", function (Y) {
         Y.one("textarea").plug (Y.TextareaAutoheight);
       });
     </script>
